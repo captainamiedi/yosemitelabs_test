@@ -42,6 +42,9 @@ export default function Home() {
             dispatch(myPokemon(teamMembers))
     }, [teamMembers])
 
+    // TODO
+    // Pagination for Pokemons
+
     if (pokemons?.loading) {
         return <SpinnerComponent />
     }
