@@ -1,8 +1,11 @@
 import thunk from 'redux-thunk'
 import { createStore, applyMiddleware, compose } from 'redux'
 import RootReducer from './rootReducer'
+const data = window.localStorage.getItem('my_pokemon') 
+const initialState = {
+    myPokemon: JSON.parse(data) ?? {},
+}
 
-const initialState = {}
 const middlewares = [thunk]
 let devtools = (x) => x
 
@@ -19,3 +22,7 @@ export const Store = createStore(
     initialState,
     compose(applyMiddleware(...middlewares), devtools)
 )
+
+// Store.subscribe(()=>{
+//     window.localStorage.setItem('my_pokemon', JSON.stringify(Store.getState().myPokemon))
+//   })

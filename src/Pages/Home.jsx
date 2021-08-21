@@ -17,6 +17,8 @@ export default function Home() {
     let history = useHistory()
     useEffect(() => {
         dispatch(getAllPokemon())
+        const data = JSON.parse(window.localStorage.getItem('my_pokemon'))
+        data && setTeamMembers(data.data)
     }, [])
 
     const handleSearch = (value) => {
@@ -31,13 +33,20 @@ export default function Home() {
         console.log(teamMembers.length, 'send in');
         if(teamMembers.length <= 5){
             setTeamMembers([...teamMembers, item])
+            const payload = {
+                data: [...teamMembers, item]
+            }
+            window.localStorage.setItem('my_pokemon', JSON.stringify(payload))
         }
         // dispatch()
     }
     useEffect(() => {
-        dispatch(myPokemon(teamMembers))
+        // if (teamMembers > 0) {
+            dispatch(myPokemon(teamMembers))
+        // }
+        // window.localStorage.setItem('my_pokemon', JSON.stringify(teamMembers))
     }, [teamMembers])
-    console.log(teamMembers, '=====');
+
     return (
         <div>
             <Navbar />
