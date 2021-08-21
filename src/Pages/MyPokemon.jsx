@@ -7,12 +7,11 @@ import { DeleteIcon} from '@chakra-ui/icons'
 
 export default function MyPokemon() {
     const myPokemonData = useSelector(state => state.myPokemon)
-    console.log(myPokemonData, 'data');
     return (
         <Box>
             <Navbar />
                 <Center>
-            <Box p={6} >
+            <Box p={6} w='50%' >
             <Table variant="striped" colorScheme="teal">
                 <Thead>
                     <Th>
