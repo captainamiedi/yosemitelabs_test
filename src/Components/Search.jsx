@@ -1,6 +1,6 @@
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import React from 'react'
-import { Search2Icon} from '@chakra-ui/icons'
+import { Search2Icon } from '@chakra-ui/icons'
 
 export default function Search({setSeachValue}) {
     return (
