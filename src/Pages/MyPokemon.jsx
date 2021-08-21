@@ -4,14 +4,25 @@ import Navbar from '../Components/Navbar'
 import { useDispatch, useSelector } from 'react-redux'
 import { Image } from "@chakra-ui/react"
 import { DeleteIcon} from '@chakra-ui/icons'
+import { myPokemon } from '../Redux/actions'
 
 export default function MyPokemon() {
     const myPokemonData = useSelector(state => state.myPokemon)
+    let dispatch = useDispatch()
+    const handleDelete = (id) => {
+        let temp = [...myPokemonData.data]
+        temp.splice(id, 1)
+        const payload = {
+            data: temp
+        }
+        window.localStorage.setItem('my_pokemon', JSON.stringify(payload))
+        dispatch(myPokemon(temp))
+    }
     return (
         <Box>
             <Navbar />
                 <Center>
-            <Box p={6} w='50%' >
+            <Box p={6} w={['100%', '50%']} >
             <Table variant="striped" colorScheme="teal">
                 <Thead>
                     <Th>
@@ -23,7 +34,7 @@ export default function MyPokemon() {
                     {myPokemonData?.data?.map((item, id) => (
                         <Tr key={id}>
                         <Td>{item.name}</Td>
-                        <Td><DeleteIcon /></Td>
+                        <Td><DeleteIcon onClick={() => handleDelete(id)}/></Td>
                     </Tr>
                     ))}
                     

@@ -5,13 +5,13 @@ export default function Pokemon({name, url, handleViewPokemon, handleAddTeam, it
     const namesSelected  = selected.map((val) => val.name)
     return (
         <Box w='100%' borderWidth="1px" borderRadius="lg" as='button'>
-            <Center>
+            <Center onClick={() => handleViewPokemon(name)}>
             <Image
                 boxSize="100px"
                 objectFit="cover"
                 src={url}
                 alt={name}
-                onClick={() => handleViewPokemon(name)}
+                
             />
             <Text>{name}</Text>
             </Center>

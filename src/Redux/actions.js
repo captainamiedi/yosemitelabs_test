@@ -69,8 +69,6 @@ export const pokemonDetail = (payload) => async (dispatch) => {
       dispatch({
         type: actionTypes.LOADING_STOP,
       });
-
-      console.log(data, "details");
       return dispatch(defaultAction(actionTypes.POKEMON_DETAILS_SUCCESS, data))
     }
     dispatch({
