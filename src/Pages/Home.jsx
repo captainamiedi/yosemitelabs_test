@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react'
 import Navbar from '../Components/Navbar'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllPokemon, myPokemon, searchPokemon } from '../Redux/actions'
-import { Box, Center, Grid, SimpleGrid, Text } from '@chakra-ui/react'
-import PokemonDetails from './PokemonDetails'
+import { Box, Center, SimpleGrid, Text } from '@chakra-ui/react'
 import Search from '../Components/Search'
 import Pokemon from '../Components/Pokemon'
 import { useHistory } from 'react-router-dom'
+import SpinnerComponent from '../Components/Spinner'
 
 export default function Home() {
     const pokemons = useSelector(state => state.AllPokemon)
@@ -30,7 +30,6 @@ export default function Home() {
     }
 
     const handleAddTeam =(item)=> {
-        console.log(teamMembers.length, 'send in');
         if(teamMembers.length <= 5){
             setTeamMembers([...teamMembers, item])
             const payload = {
@@ -38,15 +37,14 @@ export default function Home() {
             }
             window.localStorage.setItem('my_pokemon', JSON.stringify(payload))
         }
-        // dispatch()
     }
     useEffect(() => {
-        // if (teamMembers > 0) {
             dispatch(myPokemon(teamMembers))
-        // }
-        // window.localStorage.setItem('my_pokemon', JSON.stringify(teamMembers))
     }, [teamMembers])
 
+    if (pokemons?.loading) {
+        return <SpinnerComponent />
+    }
     return (
         <div>
             <Navbar />

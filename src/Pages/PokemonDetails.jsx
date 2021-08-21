@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { pokemonDetail } from "../Redux/actions";
 import Navbar from "../Components/Navbar";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import SpinnerComponent from "../Components/Spinner";
 
 export default function PokemonDetails({}) {
   let { name } = useParams();
@@ -22,7 +23,9 @@ export default function PokemonDetails({}) {
   useEffect(() => {
     dispatch(pokemonDetail(name));
   }, [name]);
-  console.log(pokemonDetails);
+  if (pokemonDetails?.loading) {
+    return <SpinnerComponent />;
+  }
   return (
     <Box>
       <Navbar />
