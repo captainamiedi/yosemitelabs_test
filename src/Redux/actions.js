@@ -9,7 +9,7 @@ export const getAllPokemon = () => async (dispatch) => {
     });
     const response = await axios.get(apiUrl.pokemons);
     const data = await response.data;
-    console.log(response.status);
+
     if (response.status === 200) {
       dispatch({
         type: actionTypes.LOADING_STOP,
@@ -33,7 +33,7 @@ export const searchPokemon = (payload) => async (dispatch) => {
 
     const response = await axios.get(apiUrl.searchPokemon(payload));
     const data = await response.data;
-    console.log(response.status);
+
     if (response.status === 200) {
       dispatch({
         type: actionTypes.LOADING_STOP,
