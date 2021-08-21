@@ -15,7 +15,7 @@ import { pokemonDetail } from "../Redux/actions";
 import Navbar from "../Components/Navbar";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import SpinnerComponent from "../Components/Spinner";
-import { myPokemon } from '../Redux/actions'
+import { myPokemon } from "../Redux/actions";
 
 export default function PokemonDetails({}) {
   let { name } = useParams();
@@ -26,34 +26,37 @@ export default function PokemonDetails({}) {
     dispatch(pokemonDetail(name));
   }, [name]);
 
-  const namesSelected  = myPokemonData?.data.map((val) => val.name)
+  const namesSelected = myPokemonData?.data.map((val) => val.name);
 
   const handleAddOrRemove = () => {
-      const isSelected = namesSelected.indexOf(pokemonDetails?.name) !== -1 ? true : false;
-      if (isSelected) {
-          const index = namesSelected.indexOf(pokemonDetails?.name)
-          let temp = [...myPokemonData.data]
-        temp.splice(index, 1)
-        const payload = {
-            data: temp
-        }
-        window.localStorage.setItem('my_pokemon', JSON.stringify(payload))
-        dispatch(myPokemon(temp))
-      } else {
-        let temp = [...myPokemonData.data]
-        const payload = {
-            name: pokemonDetails?.name,
-            url: pokemonDetails?.sprites?.front_default
-        }
-        temp.push(payload)
-        dispatch(myPokemon(temp))
-        const payload1 = {
-            data: temp
-        }
-        window.localStorage.setItem('my_pokemon', JSON.stringify(payload1))
-        // console.log(temp, 'temp data');
-      }
-  }
+    const isSelected =
+      namesSelected.indexOf(pokemonDetails?.name) !== -1 ? true : false;
+    if (isSelected) {
+      const index = namesSelected.indexOf(pokemonDetails?.name);
+      let temp = [...myPokemonData.data];
+      temp.splice(index, 1);
+      const payload = {
+        data: temp,
+      };
+      window.localStorage.setItem("my_pokemon", JSON.stringify(payload));
+      dispatch(myPokemon(temp));
+    } else {
+      let temp = [...myPokemonData.data];
+      const payload = {
+        name: pokemonDetails?.name,
+        url: pokemonDetails?.sprites?.front_default,
+      };
+      temp.push(payload);
+      dispatch(myPokemon(temp));
+      const payload1 = {
+        data: temp,
+      };
+      window.localStorage.setItem("my_pokemon", JSON.stringify(payload1));
+    }
+  };
+
+  // TODO
+  // check if sprites image is null
 
   if (pokemonDetails?.loading) {
     return <SpinnerComponent />;
@@ -63,17 +66,23 @@ export default function PokemonDetails({}) {
       <Navbar />
       <Center>
         <SimpleGrid columns={[1, null, 2]} spacing="40px" pt={4}>
-          <Box borderWidth="1px" borderRadius="lg" overflow="hidden">
+          <Box>
+            <Box borderWidth="1px" borderRadius="lg" overflow="hidden">
               <Box>
-            <Image
-              src={pokemonDetails.sprites?.front_default}
-              alt=""
-              boxSize="300px"
-            />
+                <Image
+                  src={pokemonDetails.sprites?.front_default}
+                  alt=""
+                  boxSize="300px"
+                />
               </Box>
               <Center>
-              <Button colorScheme="blue" onClick={handleAddOrRemove}>{`${namesSelected.indexOf(pokemonDetails?.name) !== -1 ? 'Remove Member' : 'Add to Team'}`}</Button>
+                <Button colorScheme="blue" onClick={handleAddOrRemove}>{`${
+                  namesSelected.indexOf(pokemonDetails?.name) !== -1
+                    ? "Remove Member"
+                    : "Add to Team"
+                }`}</Button>
               </Center>
+            </Box>
           </Box>
 
           <Box>
@@ -130,6 +139,12 @@ export default function PokemonDetails({}) {
                     <Box>
                       <Image
                         src={pokemonDetails?.sprites?.front_female}
+                        alt=""
+                      />
+                    </Box>
+                    <Box>
+                      <Image
+                        src={pokemonDetails?.sprites?.front_default}
                         alt=""
                       />
                     </Box>
