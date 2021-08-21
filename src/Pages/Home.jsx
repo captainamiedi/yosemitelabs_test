@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import Navbar from '../Components/Navbar'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllPokemon, myPokemon, searchPokemon } from '../Redux/actions'
-import { Box, Center, Grid, Text } from '@chakra-ui/react'
+import { Box, Center, Grid, SimpleGrid, Text } from '@chakra-ui/react'
 import PokemonDetails from './PokemonDetails'
 import Search from '../Components/Search'
 import Pokemon from '../Components/Pokemon'
@@ -50,15 +50,15 @@ export default function Home() {
                 </Box>
                 </Box>
             </Center>
-            { !searchValue && <Box p={4} px={4}>
-                <Grid templateColumns="repeat(5, 1fr)" gap={6}>
+            {!searchValue && <Box p={4} px={4}>
+                <SimpleGrid columns={[1, null, 5]} spacing="40px">
                     {pokemons?.results?.map((item, id) => (
                         <Pokemon key={id} name={item.name} url={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id +
                         1}.png`} handleViewPokemon={handleViewPokemon} handleAddTeam={handleAddTeam} item={item} selected={teamMembers}/>
                     ))}
-                </Grid>
+                </SimpleGrid>
             </Box>}
-            {searchResult?.data && <Pokemon name={searchResult?.data?.name} url={searchResult?.data?.image}  />}
+            {searchResult?.data && searchValue &&  <Pokemon name={searchResult?.data?.name} url={searchResult?.data?.image}  handleViewPokemon={handleViewPokemon} handleAddTeam={handleAddTeam} item={searchResult?.data} selected={teamMembers} />}
         </div>
     )
 }
