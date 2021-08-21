@@ -62,11 +62,13 @@ export const pokemonDetails = (state = {}, action) => {
       }
 }
 
-export const myPokemon = (state = {}, action) => {
+export const myPokemon = (state, action) => {
     switch (action.type) {
         case actionTypes.MY_TEAM_POKEMON:
           return {data: action.payload};
         default:
-          return state;
+          return {
+            ...state
+          };
       }
 }
